@@ -11,7 +11,9 @@ void INI_Reader::Reader(const std::string& name_file){
 			if (str[0] == '[') {
 				head = str.substr(1, str.find(']') - 1);
 				if (head != _head ) {
-					_section[_head]= _key_vars;
+					if (_head != "") {
+						_section[_head] = _key_vars;
+					}
 					_head = head;
 					_key_vars.clear();
 				}
@@ -26,7 +28,7 @@ void INI_Reader::Reader(const std::string& name_file){
 						keyVar.first += str[i];
 					}
 					else {
-						if (str[i] != ' ') {
+						if (str[i] != ';' || str[i]!='#') {
 							keyVar.second += str[i];
 						}
 						else
@@ -42,7 +44,7 @@ void INI_Reader::Reader(const std::string& name_file){
 	in.close();	
 }
 
-const std::string& INI_Reader::SearchKeyToHeader(const std::string& key) const{
+const std::string INI_Reader::SearchKeyToHeader(const std::string& key) const{
 	if (this->KeyIsFile(key)) {
 		for ( auto [head, value] : _section) {
 			for (auto it = value.begin(); it != value.end(); it ++) {
@@ -84,7 +86,7 @@ bool INI_Reader::VarIsFile(const std::string& var) const{
 	return false;
 }
 
-const std::string& INI_Reader::SearchVarToHeader(const std::string& head, const std::string& key){
+const std::string INI_Reader::SearchVarToHeader(const std::string& head, const std::string& key){
 	if (this->SearchSector(head) && this->KeyIsFile(key)) {
 		for ( auto it = _section[head].begin(); it != _section[head].end(); it ++) {
 			if (it->first == key)
@@ -114,7 +116,7 @@ void INI_Reader::Replacement(const std::string& head, const std::string& key, co
 	}
 }
 
-const std::string& INI_Reader::GetFile() const{
+const std::string INI_Reader::GetFile() const{
 	std::string file;
 	for ( auto [head, value] : _section) {
 		file += (head+'\n');

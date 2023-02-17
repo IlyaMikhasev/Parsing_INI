@@ -29,7 +29,7 @@ void Program_reader::Work(std::shared_ptr<IReader> obj){
 			case 1:
 				std::cout << "Введите ключ-> ";
 				std::cin >> key;
-				std::cout<<obj->KeyIsFile(key)<<'\n';
+				std::cout<<obj->SearchKeyToHeader(key)<<'\n';
 				break;
 			case 2:
 				std::cout << "Введите название заголовка ->";
@@ -86,9 +86,9 @@ void Program_reader::Work(std::shared_ptr<IReader> obj){
 			}
 
 		}
-		catch (const std::exception& ex)
+		catch (const char** ch)
 		{
-			std::cout << ex.what();
+			std::cout << ch<<'\n';
 			continue;
 		}
 			
