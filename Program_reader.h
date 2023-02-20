@@ -5,8 +5,8 @@ class Program_reader
 {
 public:
 	Program_reader(const std::string& path);
-	void StartRead(std::shared_ptr<IReader> obj);
-	void Work(std::shared_ptr<IReader> obj);
+	void StartRead(std::shared_ptr<INI_Reader>& obj);
+	void Work(std::shared_ptr<INI_Reader>& obj);
 	void SaveFile(const std::string& newPath,const std::string& file);
 private:
 	std::string _path;

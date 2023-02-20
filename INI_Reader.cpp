@@ -4,6 +4,7 @@ void INI_Reader::Reader(const std::string& name_file){
 	std::ifstream in;
 	in.open(name_file);
 	std::string str, head;
+	std::vector<std::pair<std::string, std::string>> _key_vars;
 	if (in.is_open()) {		
 		while (getline(in,str)) {
 			bool varKey = true;
@@ -28,7 +29,7 @@ void INI_Reader::Reader(const std::string& name_file){
 						keyVar.first += str[i];
 					}
 					else {
-						if (str[i] != ';' || str[i]!='#') {
+						if (str[i] != ';' || str[i] != '#') {
 							keyVar.second += str[i];
 						}
 						else
@@ -37,24 +38,20 @@ void INI_Reader::Reader(const std::string& name_file){
 				}
 			_key_vars.push_back(keyVar);
 			}
-		}			
+		}
+		_section[_head] = _key_vars;
 	}
 	else
-		std::cout << "Error open file\n";
+		throw "Error open file";
 	in.close();	
 }
 
-const std::string INI_Reader::SearchKeyToHeader(const std::string& key) const{
-	if (this->KeyIsFile(key)) {
-		for ( auto [head, value] : _section) {
-			for (auto it = value.begin(); it != value.end(); it ++) {
-				if (it->first == key)
-					return head;
-			}
+const std::string INI_Reader::SearchKeyToHeader(const std::string& key){	
+	for ( auto [head, value] : _section) {
+		for (auto it = value.begin(); it != value.end(); it ++) {
+			if (it->first == key)
+				return head;
 		}
-	}
-	else {
-		throw "key does not exist";
 	}
 }
 
@@ -66,7 +63,7 @@ bool INI_Reader::SearchSector(const std::string& header) const{
 	return false;
 }
 
-bool INI_Reader::KeyIsFile(const std::string& key) const{
+bool INI_Reader::SearchKey(const std::string& key) const{
 	for ( auto [head, value] : _section) {
 		for ( auto it = value.begin(); it != value.end(); it++) {
 			if (it->first == key)
@@ -76,7 +73,7 @@ bool INI_Reader::KeyIsFile(const std::string& key) const{
 	return false;
 }
 
-bool INI_Reader::VarIsFile(const std::string& var) const{
+bool INI_Reader::SearchVariable(const std::string& var) const{
 	for ( auto [head, value] : _section) {
 		for ( auto it = value.begin(); it != value.end(); it++) {
 			if (it->second == var)
@@ -87,19 +84,15 @@ bool INI_Reader::VarIsFile(const std::string& var) const{
 }
 
 const std::string INI_Reader::SearchVarToHeader(const std::string& head, const std::string& key){
-	if (this->SearchSector(head) && this->KeyIsFile(key)) {
-		for ( auto it = _section[head].begin(); it != _section[head].end(); it ++) {
-			if (it->first == key)
-				return it -> second;
+	for (auto it = _section[head].begin(); it != _section[head].end(); it++) {
+		if (it->first == key) {
+			return it->second;
 		}
-	}
-	else {
-		throw "incorrect parameters";
 	}
 }
 
 void INI_Reader::Replacement(const std::string& head, const std::string& key, const std::string& var){
-	if (this->SearchSector(head) && this->KeyIsFile(key)) {
+	if (this->SearchSector(head) && this->SearchKey(key)) {
 		for (auto it = _section[head].begin(); it != _section[head].end(); it ++) {
 			if (it->first == key) {
 				it->second = var;
@@ -108,10 +101,8 @@ void INI_Reader::Replacement(const std::string& head, const std::string& key, co
 		}
 	}
 	else {
-		_key_vars.clear();
 		std::pair<std::string, std::string> keyVar = { key,var };
-		_key_vars.push_back(keyVar);
-		_section[head] = _key_vars;
+		_section[head].push_back(keyVar);
 		std::cout << "Создан новый раздел со значением\n";
 	}
 }
