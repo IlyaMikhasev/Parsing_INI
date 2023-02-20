@@ -6,7 +6,7 @@ int main(int args, char** argv) {
 	std::shared_ptr<INI_Reader> ini = std::make_shared<INI_Reader>();
 	try {
 		if (args > 1) {
-			Program_reader prog(argv[1]);
+			Program_reader prog(argv[0]);
 			prog.Work(ini);
 		}
 		else {
