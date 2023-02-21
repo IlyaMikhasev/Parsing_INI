@@ -29,7 +29,7 @@ void INI_Reader::Reader(const std::string& name_file){
 						keyVar.first += str[i];
 					}
 					else {
-						if (str[i] != ';' || str[i] != '#') {
+						if (str[i] != ';' && str[i] != '#') {
 							keyVar.second += str[i];
 						}
 						else
@@ -96,21 +96,21 @@ void INI_Reader::Replacement(const std::string& head, const std::string& key, co
 		for (auto it = _section[head].begin(); it != _section[head].end(); it ++) {
 			if (it->first == key) {
 				it->second = var;
-				std::cout << "Çíà÷åíèå èçìåíåíî\n";
+				std::cout << "Ã‡Ã­Ã Ã·Ã¥Ã­Ã¨Ã¥ Ã¨Ã§Ã¬Ã¥Ã­Ã¥Ã­Ã®\n";
 			}
 		}
 	}
 	else {
 		std::pair<std::string, std::string> keyVar = { key,var };
 		_section[head].push_back(keyVar);
-		std::cout << "Ñîçäàí íîâûé ğàçäåë ñî çíà÷åíèåì\n";
+		std::cout << "Ã‘Ã®Ã§Ã¤Ã Ã­ Ã­Ã®Ã¢Ã»Ã© Ã°Ã Ã§Ã¤Ã¥Ã« Ã±Ã® Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¥Ã¬\n";
 	}
 }
 
 const std::string INI_Reader::GetFile() const{
 	std::string file;
 	for ( auto [head, value] : _section) {
-		file += (head+'\n');
+		file += ('['+head + "]\n");
 		for ( auto it = value.begin(); it != value.end(); it++) {
 			file += (it->first + '=' + it->second + '\n');
 		}
