@@ -6,11 +6,11 @@ int main(int args, char** argv) {
 	std::shared_ptr<INI_Reader> ini = std::make_shared<INI_Reader>();
 	try {
 		if (args > 1) {
-			Program_reader prog(argv[0]);
+			Program_reader prog(argv[1]);
 			prog.Work(ini);
 		}
 		else {
-			std::cout << "Íå óêàçàí ïóòü ôàéëà.\nÂâåäèòè àäðåñ ôàéëà->";
+			std::cout << "ÃÃ¥ Ã³ÃªÃ Ã§Ã Ã­ Ã¯Ã³Ã²Ã¼ Ã´Ã Ã©Ã«Ã .\nÃ‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¨ Ã Ã¤Ã°Ã¥Ã± Ã´Ã Ã©Ã«Ã ->";
 			std::string path;
 			std::cin >> path;
 			Program_reader prog1(path);
@@ -19,7 +19,7 @@ int main(int args, char** argv) {
 	}
 	catch(const char* ex){
 		std::cout << ex << std::endl;
-		std::cout << "\nÂâåäèòè àäðåñ ôàéëà->";
+		std::cout << "\nÃ‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¨ Ã Ã¤Ã°Ã¥Ã± Ã´Ã Ã©Ã«Ã ->";
 		std::string path;
 		std::cin >> path;
 		Program_reader prog1(path);
