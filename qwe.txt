@@ -1,33 +1,13 @@
-DisplaySettings
-Brightness=100
-Saturation=1.5
-ColorSpace=RGB
-AutoTone=false
-NumberOfDisplays=auto
-TrickyKey=
-OneMoreTrickyKey=
+паттерн состоит из:
+  -Имя
+  -Задача
+  -Решения
+  -Результаты.
+приинципы
+  -решайте проблему а не раздувайте функционал
+  -первична задача а не паттерн
+  -не вводите сложные патерны там где можно обойтись простым
+  -абстрогируйтесь от деталей реализации до того как начнете писать код
 
-Difficulty
-mode=hard 
-initialMode=easy
-  =
-
-Controls
-MouseButtonsBinding=default
-WindowsButtonAllowed=false
-
-ReallyLongSectionName
-KeyOfReallyLongSectionName=ValueOfKeyOfReallyLongSectionName
-k=v
-
-EmptySettings
-
-Section4.0
-
-ViewState
-Mode=
-Vid=
-FolderType=Generic
-
-Section5.0
-
+Builder - определяет алгоритм построения обьекта
+ 
