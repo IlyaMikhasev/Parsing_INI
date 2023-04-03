@@ -1,32 +1,41 @@
-DisplaySettings
-Brightness=100
-Saturation=1.5
-ColorSpace=RGB
-AutoTone=false
-NumberOfDisplays=auto
-TrickyKey=
-OneMoreTrickyKey=
-
-Difficulty
-mode=hard 
-initialMode=easy
-
-Controls
-MouseButtonsBinding=default
-WindowsButtonAllowed=false
-
-ReallyLongSectionName
-KeyOfReallyLongSectionName=ValueOfKeyOfReallyLongSectionName
-k=v
-
-EmptySettings
-
-Section4.0
-
-ViewState
-Mode=
-Vid=
-FolderType=Generic
-
-Section5.0
-
+                АРХИТЕКТУРНЫЕ ПАТТЕРНЫ
+монолитные паттерны
+-MVC{
+  M-model
+  V-view(предстовление)
+  C-controler
+  
+  M <--> C <--> V; m->v
+}
+-MVP{
+M-model
+V-viewer(отображение)
+P-prezenter(пользовательский интерфес)
+ M <--> V <--> P
+}
+-MVVM{
+M-модель данных
+VM-модель представление данных
+V-представление данных
+M <--> VM <--> V
+}
+Микросервисы
+REST api
+{
+-->  Reciever -> queue <- Worker <-> Global state
+                            |
+                            V
+                          Answer --> user 
+}
+1 уровень разделения 
+ -разграничить модули по пространствам имен
+ 2 уровень разограничения 
+ -отдельный слой отдельная библиотека
+ 3 уровень разделения 
+ - каждый слой отдельно исполняемый файл
+ 
+      CRUD
+     C-create
+     R-request
+     U-update
+     D-delete
